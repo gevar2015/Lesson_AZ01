@@ -43,3 +43,15 @@ with open('sofas_prices.csv', mode='w', newline='', encoding='utf-8') as file:
     writer.writerows(parsed_data)
 
 print("Парсинг завершен, данные сохранены в sofas_prices.csv")
+import pandas as pd
+
+# Загрузка данных из CSV файла
+df = pd.read_csv('sofas_prices.csv')
+
+# Удаление символа "₽" и преобразование в числовой тип данных
+df['Цена дивана'] = df['Цена дивана'].str.replace('руб.', '').str.replace(' ', '').astype(float)
+
+# Сохранение обработанных данных в новый CSV файл
+df.to_csv('processed_sofas_prices.csv', index=False)
+
+print("Обработка завершена, данные сохранены в processed_sofas_prices.csv")
