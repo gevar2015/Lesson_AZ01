@@ -55,3 +55,27 @@ df['Цена дивана'] = df['Цена дивана'].str.replace('руб.',
 df.to_csv('processed_sofas_prices.csv', index=False)
 
 print("Обработка завершена, данные сохранены в processed_sofas_prices.csv")
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Загрузка обработанных данных из CSV файла
+df = pd.read_csv('processed_sofas_prices.csv')
+
+# Расчет средней цены
+average_price = df['Цена дивана'].mean()
+print(f"Средняя цена на диваны: {average_price:.2f} рублей")
+
+# Построение гистограммы для цен
+plt.figure(figsize=(10, 6))
+plt.hist(df['Цена дивана'], bins=20, edgecolor='k', alpha=0.7)
+plt.title('Распределение цен на диваны')
+plt.xlabel('Цена дивана (в рублях)')
+plt.ylabel('Количество')
+plt.grid(True)
+
+# Добавление вертикальной линии для средней цены
+plt.axvline(average_price, color='r', linestyle='dashed', linewidth=1)
+plt.text(average_price, plt.ylim()[1]*0.9, f'Средняя цена: {average_price:.2f} руб.', color = 'r')
+
+plt.show()
